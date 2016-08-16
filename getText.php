@@ -20,16 +20,15 @@ $filename = "test.txt";
 // fclose($handle);
 
 
-
 $handle = fopen($filename, "rb");
-// $contents = '';
+$contents = '';
 while (!feof($handle))
 {
       //8192為字元數，每一次取8192個字元
       $contents = fread($handle, 8192);
       //echo $contents . "<br>";
-      echo strip_tags($contents);
-      //echo substr( $contents , 65 );
+      //echo strip_tags($contents);
+      echo substr( $contents , 65 );
 }
 
 fclose($handle);
