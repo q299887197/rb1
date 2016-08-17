@@ -3,10 +3,14 @@ require_once("BallSql.php");
 
 header("content-type: text/html; charset=utf-8");
 
-// 1. 初始設定
-$ch = curl_init();
+//连接本地的 Redis 服务
+$redis = new Redis();
+$redis->connect('127.0.0.1', 6379);
 
 $ballSql = new BallSql();
+
+// 1. 初始設定
+$ch = curl_init();
 
 $fp = fopen("test.txt", "w+"); // W以寫模式打開文件
 $cookie_jar_index = dirname(__FILE__)."/".'cookie.txt';
@@ -22,7 +26,7 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //將curl_exec()獲取的訊息以�
 curl_setopt($ch, CURLOPT_HEADER, 0);
 $pageContent = curl_exec($ch);
 
-curl_setopt($ch, CURLOPT_URL, $url3);
+curl_setopt($ch, CURLOPT_URL, $url2);
 curl_setopt($ch, CURLOPT_COOKIEFILE, $cookie_jar_index);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //將curl_exec()獲取的訊息以文件流的形式返回，而不是直接輸出。
 curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -69,12 +73,17 @@ for($i=1 ; $i < 2 ; $i++){
 	$halfWin = $arr[$i][31] ."&". $arr[$i][32] ."&". $arr[$i][33]; //半場獨贏
 	$halfScore = $arr[$i][24] ."&". $arr[$i][25] ."&". $arr[$i][26]; //半場讓球 黑字+上+下
 	$halfSize = $arr[$i][27] ."&". $arr[$i][30] ."&". $arr[$i][28] ."&". $arr[$i][29]; //半場大小 上黑字+上+下黑字+下
+	$gameId = $arr[$i][22]; //賽事編號
 
-	$ballSql->insertGame($league, $date, $event, $allWin, $allScore, $allSize, $oddEven, $halfWin, $halfScore, $halfSize);
-
+	$ballSql->selectGame($league, $date, $event, $allWin, $allScore, $allSize, $oddEven, $halfWin, $halfScore, $halfSize, $gameId);
 
 	echo "<br><br>";
 
 }
+
+
+$record = $ballSql->selectAll();
+$arr = array(1,2,3,4,5);
+$result = $redis->set('test', json_encode($record));
 
 
