@@ -1,4 +1,6 @@
 <?php
+// header('refresh: 2');
+
 header("content-type: text/html; charset=utf-8");
 
 //连接本地的 Redis 服务
@@ -9,4 +11,3 @@ $result = $redis->get('test');
 echo $result;
 
 print_r(json_decode($result, true));
-

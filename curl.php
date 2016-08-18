@@ -1,4 +1,6 @@
 <?php
+// header('refresh: 2');
+
 require_once("BallSql.php");
 
 header("content-type: text/html; charset=utf-8");
@@ -16,7 +18,7 @@ $fp = fopen("test.txt", "w+"); // W以寫模式打開文件
 $cookie_jar_index = dirname(__FILE__)."/".'cookie.txt';
 
 $url = "http://www.228365365.com/sports.php"; //下注網
-$url2 = "http://www.228365365.com/app/member/FT_browse/body_var.php?uid=test00&rtype=r&langx=zh-cn&mtype=3&page_no=0&league_id=&hot_game="; //內部網址
+$url2 = "http://www.228365365.com/app/member/FT_browse/body_var.php?uid=test00&rtype=r&langx=zh-cn&mtype=3&page_no=0&league_id=&hot_game="; //今日賽事網址
 $url3 = "http://www.228365365.com/app/member/FT_future/body_var.php?uid=test00&rtype=r&langx=zh-cn&mtype=3&page_no=0&league_id=&hot_game=";
 
 // 2. 設定 / 調整參數

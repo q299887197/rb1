@@ -94,6 +94,7 @@ class BallSql
         $update->execute();
     }
 
+    /* 查詢所有球賽數據    SELECT */
     public function selectAll()
     {
         $dbh = $this->dbh;
