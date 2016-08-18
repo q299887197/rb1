@@ -7,7 +7,7 @@ header("content-type: text/html; charset=utf-8");
 $redis = new Redis();
 $redis->connect('127.0.0.1', 6379);
 
-$result = $redis->get('test');
+$result = $redis->get('todayGame');
 echo $result;
 
 print_r(json_decode($result, true));
